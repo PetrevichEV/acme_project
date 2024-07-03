@@ -4,9 +4,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-m&$lzdzkutvrbr5vt=jpm)7#g7cken_tk%($ty+w902n7wb#=e'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    # Когда проект будет опубликован и станет доступен для пользователей,
+    # в этот список нужно будет добавить и адреса домена, где он будет размещён,
+    # например 'acme.not' и 'www.acme.not'
+] 
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -18,6 +24,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'birthday.apps.BirthdayConfig',
     'pages.apps.PagesConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -89,3 +96,13 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
+LOGIN_REDIRECT_URL = 'pages:homepage'
+
+LOGIN_URL = 'login'
+
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
